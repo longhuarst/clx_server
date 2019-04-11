@@ -13,10 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\clx">
+      <UniqueIdentifier>{3e570126-2104-417e-8ea7-b7dbf0beaba0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="clx_message_hub_uuid.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="clx\ClxServer.cpp">
+      <Filter>源文件\clx</Filter>
+    </ClCompile>
+    <ClCompile Include="clx\ClxSession.cpp">
+      <Filter>源文件\clx</Filter>
+    </ClCompile>
+    <ClCompile Include="clx\ClxLog.cpp">
+      <Filter>源文件\clx</Filter>
+    </ClCompile>
+    <ClCompile Include="clx\ClxIdTable.cpp">
+      <Filter>源文件\clx</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="clx\ClxServer.h">
+      <Filter>源文件\clx</Filter>
+    </ClInclude>
+    <ClInclude Include="clx\ClxSession.h">
+      <Filter>源文件\clx</Filter>
+    </ClInclude>
+    <ClInclude Include="clx\ClxLog.h">
+      <Filter>源文件\clx</Filter>
+    </ClInclude>
+    <ClInclude Include="clx\ClxIdTable.h">
+      <Filter>源文件\clx</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
