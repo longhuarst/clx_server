@@ -14,6 +14,8 @@ public:
 
 	void start();
 
+
+
 private:
 
 
@@ -26,13 +28,19 @@ private:
 
 
 	boost::asio::ip::tcp::socket socket_;
-	boost::asio::ip::tcp::socket *socket_peer_;//对等端socket
-
+	//boost::asio::ip::tcp::socket *socket_self_;//自己
+	//boost::asio::ip::tcp::socket *socket_peer_;//对等端socket
+	//ClxSession * session_peer_;//对等端的session
+	
+	
+	
 	enum {max_length = 1024};
 	char data_[max_length];
 	char data_send_[max_length];//发送的数据
 	boost::asio::streambuf outputstream_;
 	boost::asio::streambuf inputstream_;
+
+
 
 	bool inited_;//uuid是否验证完毕
 

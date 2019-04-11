@@ -14,14 +14,16 @@
 
 ClxSession::ClxSession(boost::asio::ip::tcp::socket socket)
 	:socket_(std::move(socket)),
-	inited_(false),
-	socket_peer_(NULL)
+	inited_(false)
+	//socket_peer_(NULL)
 {
+
 }
 
 
 ClxSession::~ClxSession()
 {
+
 }
 
 void ClxSession::start()
@@ -70,7 +72,7 @@ void ClxSession::do_read()
 								//查询目标端
 
 								
-								socket_peer_ = ClxIdTableInstance::get_mutable_instance().get_socket_by_id(uuid_peer_);
+								boost::asio::ip::tcp::socket *socket_peer_ = ClxIdTableInstance::get_mutable_instance().get_socket_by_id(uuid_peer_);
 
 								if (socket_peer_ != NULL) {
 									std::cout << "建立连接成功！" << std::endl;
@@ -111,7 +113,8 @@ void ClxSession::do_read()
 			boost::asio::buffer(data_, max_length),
 			[this, self](boost::system::error_code ec, std::size_t length) {
 				if (!ec) {
-					std::cout << "读取到数据... 长度 "<< length << std::endl;
+					std::cout << "读取到数据... 长度 " << length << std::endl;
+					boost::asio::ip::tcp::socket* socket_peer_ = ClxIdTableInstance::get_mutable_instance().get_socket_by_id(uuid_peer_);
 					if (socket_peer_ != NULL) {
 
 						do_write(length);
@@ -135,6 +138,11 @@ void ClxSession::do_read()
 
 
 
+				}
+				else {
+					std::cout << "[disconnected]" << std::endl;
+
+					ClxIdTableInstance::get_mutable_instance().delete_by_id(uuid_);
 				}
 			});
 
@@ -164,14 +172,23 @@ void ClxSession::do_write(std::size_t length)
 
 
 
-	boost::asio::async_write(*socket_peer_,boost::asio::buffer(data_send_,length),
-		[this, self](boost::system::error_code ec, std::size_t /*length*/) {
-			if (!ec) {
-				std::cout << "[write]" << std::endl;
-				do_read();
-			}
-			else {
-				socket_peer_ = NULL;//清楚对等端
-			}
-		});
+	try
+	{
+		boost::asio::ip::tcp::socket* socket_peer_ = ClxIdTableInstance::get_mutable_instance().get_socket_by_id(uuid_peer_);
+		boost::asio::async_write(*socket_peer_, boost::asio::buffer(data_send_, length),
+			[this, self](boost::system::error_code ec, std::size_t /*length*/) {
+				if (!ec) {
+					std::cout << "[write]" << std::endl;
+					do_read();
+				}
+				else {
+					//socket_peer_ = NULL;//清楚对等端
+				}
+			});
+	}
+	catch (const std::exception&)
+	{
+
+	}
+	
 }

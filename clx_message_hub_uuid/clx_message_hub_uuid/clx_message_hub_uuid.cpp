@@ -16,9 +16,35 @@ int main()
 
 
 
+	int *a = new int ;
 
 
+	int& b = *a;
 
+
+	*a = 10;
+
+
+	
+
+
+	std::cout << "*a = " << *a << std::endl;
+
+	std::cout << "b = " << b << std::endl;
+
+	delete a;
+
+	//try
+	//{
+	//	std::cout << "*a = " << *a << std::endl;
+	//}
+	//catch (const std::exception&)
+	//{
+
+	//}
+	//
+
+	std::cout << "b = " << b << std::endl;
 
 	std::cout << "Hello World!\n";
 
